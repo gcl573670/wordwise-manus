@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
   const client = getClientKey(request.headers);
   if (!takeRateLimit(`dictionary:${client}`, 40, 60_000)) return NextResponse.json({ status: "rate_limited", message: "Too many lookups. Please wait a minute and try again." }, { status: 429, headers: { "Retry-After": "60" } });
   try {
-    const entries = await lookupDictionary(word);
-    if (!entries) return NextResponse.json({ status: "not_found", word, entries: [], source: "Free Dictionary API" }, { status: 404, headers: { "Cache-Control": "public, max-age=60" } });
-    return NextResponse.json({ status: "ok", word, entries, source: "Free Dictionary API" }, { headers: { "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" } });
+    const result = await lookupDictionary(word);
+    if (!result) return NextResponse.json({ status: "not_found", word, entries: [], source: "Free Dictionary API" }, { status: 404, headers: { "Cache-Control": "public, max-age=60" } });
+    return NextResponse.json({ status: "ok", word, entries: result.entries, source: result.source }, { headers: { "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400" } });
   } catch (error) {
     const upstreamLimited = error instanceof ProviderError && error.status === 429;
     return NextResponse.json(

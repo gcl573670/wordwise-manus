@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-export const SITE_NAME = "WordWise Hub";
+export const SITE_NAME = "FindWord";
 export const SITE_DESCRIPTION = "Clear word meanings, related words, pronunciation help, and practical writing tools.";
 export const SITE_IMAGE_PATH = "/wordwise-share.webp";
-export const SITE_IMAGE_ALT = "An editorial illustration of a dictionary page and word marks in WordWise Hub's paper, deep teal, and copper palette.";
+export const SITE_IMAGE_ALT = "An editorial illustration of a dictionary page and word marks in FindWord's paper, deep teal, and copper palette.";
 
 export function publicSiteUrl(): URL | undefined {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();

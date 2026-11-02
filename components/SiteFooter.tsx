@@ -14,7 +14,7 @@ export function SiteFooter() {
           <div><h2>About</h2><Link href="/about">About</Link><Link href="/contact">Contact</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/editorial-policy">Editorial policy</Link><Link href="/api-sources">API sources</Link><Link href="/disclaimer">Disclaimer</Link></div>
         </div>
       </div>
-      <div className="footer-bottom"><span>WordWise Hub</span><span>Provider results are attributed and may vary by context.</span></div>
+      <div className="footer-bottom"><span>FindWord</span><span>Provider results are attributed and may vary by context.</span></div>
     </footer>
   );
 }

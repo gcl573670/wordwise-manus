@@ -8,7 +8,7 @@ export function ArticleContent({ article }: { article: Article }) {
     <article className="article-layout">
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: article.category, href: `/topics/${article.category}` }, { label: article.title, href: `/${article.category}/${article.slug}` }]} currentHref={`/${article.category}/${article.slug}`} />
       <header className="article-header">
-        <p className="eyebrow">{article.category} · WordWise Hub guide</p>
+        <p className="eyebrow">{article.category} · FindWord guide</p>
         <h1>{article.title}</h1>
         <p className="article-deck">{article.description}</p>
         <p className="article-byline">By {article.author} <span aria-hidden="true">·</span> Reviewed <time dateTime={article.reviewDate}>{article.reviewDate}</time></p>

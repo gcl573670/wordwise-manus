@@ -10,7 +10,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link href="/" className="brand" aria-label="WordWise Hub home">
+        <Link href="/" className="brand" aria-label="FindWord home">
           <span className="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M4 9c6-2 11-1 16 3 5-4 10-5 16-3v23c-6-2-11-1-16 3-5-4-10-5-16-3V9Z"/><path d="M20 12v23M9 15c4-1 7 0 9 2m13-2c-4-1-7 0-9 2M9 22c4-1 7 0 9 2m13-2c-4-1-7 0-9 2"/></svg></span>
           <span className="brand-name">WordWise <em>Hub</em></span>
         </Link>

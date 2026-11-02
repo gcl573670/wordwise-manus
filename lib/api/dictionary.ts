@@ -1,5 +1,6 @@
 import { withTtlCache } from "@/lib/cache/ttl";
 import { ProviderError, requestJson } from "@/lib/api/http";
+import LOCAL_DICTIONARY from "@/data/dictionary.json";
 
 export interface DictionaryDefinition {
   definition: string;
@@ -22,6 +23,15 @@ type RawEntry = {
   phonetic?: unknown;
   phonetics?: Array<{ text?: unknown; audio?: unknown }>;
   meanings?: Array<{ partOfSpeech?: unknown; definitions?: Array<{ definition?: unknown; example?: unknown; synonyms?: unknown; antonyms?: unknown }> }>;
+};
+
+type LocalEntry = {
+  word: string;
+  phonetic?: string;
+  phonetics?: Array<{ text?: string; audio?: string }>;
+  meanings?: Array<{ partOfSpeech: string; definitions: Array<{ definition: string; example?: string; synonyms?: string[]; antonyms?: string[] }> }>;
+  source?: string;
+  sourceUrl?: string;
 };
 
 function strings(value: unknown): string[] {
@@ -52,14 +62,46 @@ function normalize(entries: RawEntry[], requestedWord: string): DictionaryEntry[
   })).filter((entry) => entry.word.toLocaleLowerCase("en-US") === requestedWord.toLocaleLowerCase("en-US"));
 }
 
-export async function lookupDictionary(word: string): Promise<DictionaryEntry[] | null> {
+function normalizeLocal(entry: LocalEntry, requestedWord: string): DictionaryEntry | null {
+  if (entry.word.toLocaleLowerCase("en-US") !== requestedWord.toLocaleLowerCase("en-US")) return null;
+  return {
+    word: entry.word,
+    ...(entry.phonetic ? { phonetic: entry.phonetic } : {}),
+    phonetics: (entry.phonetics || []).map((item) => ({
+      ...(item.text ? { text: item.text } : {}),
+      ...(item.audio ? { audio: item.audio.startsWith("//") ? `https:${item.audio}` : item.audio } : {}),
+    })),
+    meanings: (entry.meanings || []).map((meaning) => ({
+      partOfSpeech: meaning.partOfSpeech,
+      definitions: meaning.definitions.map((definition) => ({
+        definition: definition.definition,
+        ...(definition.example ? { example: definition.example } : {}),
+        synonyms: definition.synonyms || [],
+        antonyms: definition.antonyms || [],
+      })),
+    })),
+    sourceUrl: entry.sourceUrl || `https://findword.app/`,
+  };
+}
+
+export interface LookupResult { entries: DictionaryEntry[]; source: string }
+
+export async function lookupDictionary(word: string): Promise<LookupResult | null> {
   const key = `dictionary:${word.toLocaleLowerCase("en-US")}`;
   return withTtlCache(key, 7 * 24 * 60 * 60, async () => {
+    // 1. Try local dictionary first (always available, no external dependency)
+    const localEntry = LOCAL_DICTIONARY.find((item: LocalEntry) => item.word.toLocaleLowerCase("en-US") === word.toLocaleLowerCase("en-US"));
+    if (localEntry) {
+      const normalized = normalizeLocal(localEntry, word);
+      return normalized ? { entries: [normalized], source: "FindWord local dictionary" } : null;
+    }
+
+    // 2. Fall back to external Free Dictionary API
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`;
     try {
       const raw = await requestJson<RawEntry[]>("Free Dictionary API", url);
       const entries = normalize(raw, word);
-      return entries.length ? entries : null;
+      return entries.length ? { entries, source: "Free Dictionary API" } : null;
     } catch (error) {
       if (error instanceof ProviderError && error.status === 404) return null;
       throw error;

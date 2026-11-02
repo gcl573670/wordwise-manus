@@ -8,7 +8,7 @@ export const metadata: Metadata = pageMetadata("English Vocabulary, Grammar and 
 
 export default function BlogPage() {
   const articles = getArticles();
-  return <div className="container page-main"><PageIntro eyebrow="WordWise Hub articles" title="Guides for better word choices" description="Original explanations, examples, and context notes for English vocabulary and writing." currentHref="/blog" />
+  return <div className="container page-main"><PageIntro eyebrow="FindWord articles" title="Guides for better word choices" description="Original explanations, examples, and context notes for English vocabulary and writing." currentHref="/blog" />
     {articles.length ? <div className="card-grid">{articles.map((article) => <ArticleCard article={article} key={article.slug} />)}</div> : <p className="status-box">No editorial articles are currently available.</p>}
   </div>;
 }
