@@ -32,7 +32,7 @@
   </defs>
   <rect width="1536" height="1024"
       rx="120"
-      fill="#ac672a"/>
+      fill="#f2f4ed"/>
   <rect width="1536" height="1024" fill="url(#tealGlow)"/>
   <rect width="1536" height="1024" fill="url(#rightGlow)"/>
   <rect width="1536" height="1024" fill="url(#copperGlow)"/>
