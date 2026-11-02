@@ -1,0 +1,38 @@
+{
+  "name": "wordwise-hub",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm validate:content && next dev --hostname 0.0.0.0 --port 3000",
+    "build": "pnpm validate:content && next build",
+    "start": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
+    "typecheck": "tsc --noEmit",
+    "validate:content": "node scripts/validate-content.mjs",
+    "cf:build": "pnpm validate:content && opennextjs-cloudflare build",
+    "cf:preview": "pnpm cf:build && opennextjs-cloudflare preview",
+    "cf:deploy": "pnpm cf:build && opennextjs-cloudflare deploy",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+  },
+  "dependencies": {
+    "gray-matter": "4.0.3",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-markdown": "10.1.0",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "1.20.15",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.19.11",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "wrangler": "4.156.0"
+  }
+}

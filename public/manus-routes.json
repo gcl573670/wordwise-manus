@@ -1,0 +1,32 @@
+{
+  "routes": [
+    { "path": "/", "title": "WordWise Hub — Find the word you mean" },
+    { "path": "/dictionary", "title": "Dictionary" },
+    { "path": "/dictionary/:word", "title": "Word meaning" },
+    { "path": "/synonyms", "title": "Synonyms" },
+    { "path": "/synonyms/:term", "title": "Synonyms and synonym articles" },
+    { "path": "/antonyms", "title": "Antonyms" },
+    { "path": "/antonyms/:word", "title": "Antonyms" },
+    { "path": "/pronunciation", "title": "Pronunciation" },
+    { "path": "/pronunciation/:word", "title": "Pronunciation" },
+    { "path": "/word-finder", "title": "Word Finder" },
+    { "path": "/grammar", "title": "Grammar" },
+    { "path": "/writing-tools", "title": "Writing Tools" },
+    { "path": "/abbreviations", "title": "Abbreviations and Acronyms" },
+    { "path": "/idioms", "title": "Idioms" },
+    { "path": "/blog", "title": "WordWise Hub Articles" },
+    { "path": "/topics/:category", "title": "Editorial Topics" },
+    { "path": "/tools/:tool", "title": "Writing and word tools" },
+    { "path": "/grammar/:slug", "title": "Grammar guide" },
+    { "path": "/writing/:slug", "title": "Writing guide" },
+    { "path": "/vocabulary/:slug", "title": "Vocabulary guide" },
+    { "path": "/reference/:slug", "title": "Reference guide" },
+    { "path": "/about", "title": "About WordWise Hub" },
+    { "path": "/contact", "title": "Contact WordWise Hub" },
+    { "path": "/privacy", "title": "Privacy Policy" },
+    { "path": "/terms", "title": "Terms of Service" },
+    { "path": "/editorial-policy", "title": "Editorial Policy" },
+    { "path": "/api-sources", "title": "API Sources and Attribution" },
+    { "path": "/disclaimer", "title": "Disclaimer" }
+  ]
+}
