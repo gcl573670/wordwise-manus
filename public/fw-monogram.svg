@@ -30,7 +30,6 @@
     </linearGradient>
     <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
   </defs>
-  <rect width="1536" height="1024" fill="#020504"/>
   <rect width="1536" height="1024" fill="url(#tealGlow)"/>
   <rect width="1536" height="1024" fill="url(#rightGlow)"/>
   <rect width="1536" height="1024" fill="url(#copperGlow)"/>
